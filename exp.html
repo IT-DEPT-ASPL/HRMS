@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table with Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="show-modal">YSS</td>
+            <td>123-456-7890</td>
+        </tr>
+        <tr>
+            <td class="show-modal">YSS1</td>
+            <td>987-654-3210</td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </tbody>
+</table>
+
+<div id="modal" class="modal">
+    <table>
+        <thead>
+            <tr>
+                <th>Details</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="modalBody">
+            <!-- Modal content will be added dynamically using JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('modal');
+
+        var showModals = document.querySelectorAll('.show-modal');
+        showModals.forEach(function (showModal) {
+            showModal.addEventListener('mouseover', function () {
+                var dataRow = this.parentElement;
+                var name = dataRow.querySelector('td:first-child').textContent;
+
+                var details = {
+                    'Name': name,
+                    'Age': '30',
+                    'Address': '123 VSP St',
+                };
+
+                var modalBody = document.getElementById('modalBody');
+                modalBody.innerHTML = ''; 
+
+                for (var key in details) {
+                    var tr = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    td1.textContent = key;
+                    td2.textContent = details[key];
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    modalBody.appendChild(tr);
+                }
+
+                modal.style.display = 'block';
+            });
+
+            showModal.addEventListener('mouseout', function () {
+                modal.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
