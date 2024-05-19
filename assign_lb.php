@@ -5,7 +5,7 @@ $password = "";
 $dbname = "ems";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
+// OK
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
